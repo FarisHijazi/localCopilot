@@ -1,22 +1,25 @@
 # PrivateGitHubCopilot
 
+![](https://user-images.githubusercontent.com/37570492/212965203-c9623e27-4fff-4961-a7f4-4d14625dd17c.gif)  
+([image source](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot))
+
 This project allows you to host your own GitHubCopilot-like model locally while using the official GitHubCopilot VSCode extension.
 
-This is done using a single script: `githubcopilot_to_ooba_middleware.py`, which acts as a middleware between the official GitHub copilot VSCode extension and the oobabooga backend for compatibility. (I know that this might not be optimal, but this is a minimal hack that's easy to run)
+This is done using a single script: `middleware.py`, which is a compatibility layer between the official GitHub copilot VSCode extension and [oobabooga](https://github.com/oobabooga/text-generation-webui) as a backend, since it supports almost all open source LLMs.
 
-![](./assets/github_copilot_ooba_middleware_diagram.png)
+(I know that this might not be optimal, but this is a minimal hack that's easy to run)
 
 Credit: I learned about the traffic redirecting from the Fauxpilot project [here](https://github.com/fauxpilot/fauxpilot/blob/main/documentation/client.md#copilot-plugin).
 
-
-We use the oobabooga/text-generation-webui openai extension as a backend, since it supports almost all open source LLMs and is the defacto.
+| | |
+|:-------:|:-------:|
+|Cloud| ![](./assets/github_copilot_official_diagram.png) |
+|Self-hosted| ![](./assets/github_copilot_ooba_middleware_diagram.png)  |
 
 
 ## 😁 Benefits of self-hosting
 
-1. **Privacy**: This is the main benefit, especially for enterprise. No code is sent to the cloud when self-hosting, everything runs on your machine(s).
-    ![](./assets/github_copilot_official_diagram.png)
-
+1. **Privacy**: No more sending your code to the cloud! This is the main benefit especially for enterprise. No code is sent to the cloud when self-hosting since everything runs on your machine(s).
 2. **Works without internet**
 3. **Free**: No need to pay for your monthly subscription
 
@@ -31,12 +34,15 @@ We use the oobabooga/text-generation-webui openai extension as a backend, since 
 
 ## Installation:
 
-1. Download and install the **oobabooga** backend: (I recommend using the [One-click installers](https://github.com/oobabooga/text-generation-webui#installation))
+1. Download and install the **[oobabooga](https://github.com/oobabooga/text-generation-webui#installation)** backend: (I recommend using the One-click installers)
 2. Open the `CMD_FLAGS.txt` and paste the following:
     ```sh
     --load-in-8bit --api --extensions openai api --model Deci_DeciCoder-1b --auto-launch
     ```
-3. Run the **oobabooga** server: click on `start_windows.bat` (or whatever your OS)
+3. Run the **oobabooga** server:
+
+    click on `start_windows.bat` (or whatever your OS)
+
 4. install the [official GitHub copilot extension](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot)
 5. **Download a model**
 
@@ -71,7 +77,7 @@ B. (optional) Test that the model is working by going to the "chat" tab and clic
 
     ```sh
     pip install httpx fastapi uvicorn
-    python githubcopilot_to_ooba_middleware.py --port 8000
+    python middleware.py --port 8000
     ```
 
 <details>

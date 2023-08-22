@@ -1,3 +1,7 @@
+"""
+
+"""
+
 import requests
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import StreamingResponse
@@ -35,7 +39,8 @@ async def code_completion(body: dict):
 
                         # Stream the response content
                         async for chunk in response.aiter_bytes():
-                            # print(f"{chunk=}")
+                            # print('getting chunk')
+                            print(f"{chunk=}")
                             yield chunk
         return StreamingResponse(stream_content(), media_type="application/json")
 
