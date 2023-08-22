@@ -1,0 +1,21 @@
+{
+    "prompt": "// hello world function",
+    "suffix": "",
+    "max_tokens": 500,
+    "temperature": 0.4,
+    "top_p": 1,
+    "n": 10,
+    "stop": [
+        "\n\n\n"
+    ],
+    "logprobs": 2,
+    "stream": true,
+    "extra": {
+        "language": "jsonc",
+        "next_indent": 4,
+        "prompt_tokens": 2012,
+        "suffix_tokens": 0,
+        "force_indent": 0,
+        "trim_by_indentation": true
+    }
+}
