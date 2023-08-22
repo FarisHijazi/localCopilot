@@ -54,6 +54,7 @@ Credit: I learned about the traffic redirecting from the Fauxpilot project [here
 <summary>Optional testing</summary>
 
 A. (optional) Test the backend using `curl`:
+
     ```sh
     curl -X 'POST'   'http://localhost:5001/v1/engines/codegen/completions'   -H 'accept: application/json'   -H 'Content-Type: application/json'   -d '{"prompt":"def hello_w","suffix":"","max_tokens":500,"temperature":0.4,"top_p":1,"n":1,"stop":["\ndef ","\nclass ","\nif ","\n\n#"],"logprobs":2,"stream":true}'
     ```
@@ -81,19 +82,19 @@ B. (optional) Test that the model is working by going to the "chat" tab and clic
     ```
 
 <details>
-<summary>(Optional): testing the middleware</summary>
+    <summary>(Optional): testing the middleware</summary>
 
-    ```sh
-    curl -X 'POST'   'http://localhost:8000/v1/engines/codegen/completions'   -H 'accept: application/json'   -H 'Content-Type: application/json'   -d '{"prompt":"def hello_w","suffix":"","max_tokens":500,"temperature":0.4,"top_p":1,"n":2,"stop":["\ndef ","\nclass ","\nif ","\n\n#"],"logprobs":2,"stream":true}'
-    ```
+```sh
+curl -X 'POST'   'http://localhost:8000/v1/engines/codegen/completions'   -H 'accept: application/json'   -H 'Content-Type: application/json'   -d '{"prompt":"def hello_w","suffix":"","max_tokens":500,"temperature":0.4,"top_p":1,"n":2,"stop":["\ndef ","\nclass ","\nif ","\n\n#"],"logprobs":2,"stream":true}'
+```
 
-    expected output
+expected output
 
-    ```sh
-    data: {"id": "conv-1692741316942825472", "object": "text_completion.chunk", "created": 1692741316, "model": "Deci_DeciCoder-1b", "choices": [{"index": 0, "finish_reason": "stop", "text": "", "logprobs": {"top_logprobs": [{"<|endoftext|>": -0.4215908944606781, "<fim_middle>": -1.2965909242630005, "\n": -3.0741329193115234}]}}], "usage": {"prompt_tokens": 4, "completion_tokens": 13, "total_tokens": 17}}
+```sh
+data: {"id": "conv-1692741316942825472", "object": "text_completion.chunk", "created": 1692741316, "model": "Deci_DeciCoder-1b", "choices": [{"index": 0, "finish_reason": "stop", "text": "", "logprobs": {"top_logprobs": [{"<|endoftext|>": -0.4215908944606781, "<fim_middle>": -1.2965909242630005, "\n": -3.0741329193115234}]}}], "usage": {"prompt_tokens": 4, "completion_tokens": 13, "total_tokens": 17}}
 
-    data: [DONE]
-    ```
+data: [DONE]
+```
 
 </details>
 
