@@ -13,7 +13,9 @@ app = FastAPI()
 
 @app.post("/v1/engines/codegen/completions")
 async def code_completion(body: dict):
-    # body['n'] = 1
+    body['n'] = 1
+    if 'max_tokens' in body:
+        del body['max_tokens']
 
     def code_completion_stream(body: dict):
         # define the generator for streaming
