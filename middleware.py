@@ -74,7 +74,7 @@ async def code_completion(body: dict):
 if __name__ == "__main__":
     import uvicorn
     import argparse
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('--port', type=int, default=8000)
     parser.add_argument('--host', type=str, default='0.0.0.0')
     args = parser.parse_args()
