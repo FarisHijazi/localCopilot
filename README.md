@@ -5,10 +5,7 @@
 
 This project allows you to host your own GitHubCopilot-like model locally while using the official GitHubCopilot VSCode extension.
 
-This is done using a single script: `middleware.py`, which is a compatibility layer between the official GitHub copilot VSCode extension and [oobabooga](https://github.com/oobabooga/text-generation-webui) as a backend, 
-since it supports almost all open source LLMs and is commonly used.
-
-(I know that this might not be optimal, but this is a minimal hack that's easy to run)
+This is done using a single script: `middleware.py` (only 90 lines of code), which is a compatibility layer between the official GitHub copilot VSCode extension and [oobabooga](https://github.com/oobabooga/text-generation-webui) as a backend.
 
 Credit: I learned about the traffic redirecting from the Fauxpilot project [here](https://github.com/fauxpilot/fauxpilot/blob/main/documentation/client.md#copilot-plugin).
 
@@ -48,8 +45,20 @@ Credit: I learned about the traffic redirecting from the Fauxpilot project [here
 5. **Download a model**
 
     open the oobabooga UI, go to the **models** tab and download a code completion model. I'm using: `Deci/DeciCoder-1b`, paste that name, then click download, then click load once complete
-    ![](https://www.1552.cn/wp-content/uploads/2023/06/03a46779cf1ed51-17.gif)
 
+    **Which model should I choose?**
+    Use smaller models for faster predictions, especially if you have a weaker PC.
+    I tested DeciCoder-1b
+
+    |size|speed|model name|
+    |-|-|-|
+    |125M|superfast|flax-community/gpt-neo-125M-code-clippy-dedup-2048|
+    |1B|fast|Deci/DeciCoder-1b|
+    |3B|medium|TheBloke/stablecode-instruct-alpha-3b-GGML|
+    |7B|slow|mlabonne/codellama-2-7b|
+    |15B|slow|TheBloke/WizardCoder-15B-1.0-GGML|
+
+    ![](https://www.1552.cn/wp-content/uploads/2023/06/03a46779cf1ed51-17.gif)
 
 <details>
 <summary>Optional testing</summary>
@@ -137,12 +146,24 @@ mv $COPILOTPATH/dist/resources.backup $COPILOTPATH/dist/resources
 
 </details>
 
+## Why is this project setup this way?
+
+There are many other projects for having an open source alternative for copilot, but they all need so much maintenance, I tried to use an existing large project that is well maintained: [oobabooga](https://github.com/oobabooga/text-generation-webui), since it supports almost all open source LLMs and is commonly used, and is well maintained
+
+I know that the middleware method might not be optimal, but this is a minimal hack that's easy to run, and this repository should be really easy to maintain.
+
+Once oobabooga supports multiple requests in a single call, then the middleware should no longer be needed.
+
+
 ## Other works
 
 Here are some helpful open source projects I found while doing my research:
 
-- https://github.com/fauxpilot/fauxpilot FauxPilot backend
-- https://github.com/Venthe/vscode-fauxpilot this is a FauxPilot frontend
-- https://github.com/ravenscroftj/turbopilot this uses FauxPilot frontend and redirects to a custom backend
-- https://github.com/hieunc229/copilot-clone frontend which uses Google/StackOverflow search as a backend
+|Project URL|description|actively maintained (as of Aug 2023)|
+|-|-|-|
+| https://github.com/CodedotAl/gpt-code-clippy | Frontend + models |❌|
+| https://github.com/Venthe/vscode-fauxpilot | this is a FauxPilot frontend |✅|
+| https://github.com/hieunc229/copilot-clone | frontend which uses Google/StackOverflow search as a backend |✅|
+| https://github.com/fauxpilot/fauxpilot | FauxPilot backend |✅|
+| https://github.com/ravenscroftj/turbopilot | A backend that runs models |✅|
 

@@ -4,8 +4,6 @@ All this file does is take the requests and forwrads them but changes a single p
 
 More functionality should be added later such as keep track of context of multiple files and maintaining a user session,
   but this would need lots of experimenting.
-
-Currently this is the vanilla implementation.
 """
 
 import requests
@@ -23,9 +21,7 @@ async def code_completion(body: dict):
     if "max_tokens" in body:
         del body["max_tokens"]
 
-    print(
-        "making request", i, "body:", {k: v for k, v in body.items() if k != "prompt"}
-    )
+    print("making request. body:", {k: v for k, v in body.items() if k != "prompt"})
 
     def code_completion_stream(body: dict):
         # define the generator for streaming
@@ -59,7 +55,6 @@ async def code_completion(body: dict):
         return StreamingResponse(stream_content(), media_type="application/json")
 
     def code_completion_nostream(body: dict):
-        # return body
         response = requests.post(
             "http://localhost:5001/v1/engines/codegen/completions",
             {
@@ -74,12 +69,10 @@ async def code_completion(body: dict):
         print("response", response, response.content)
         return response.content
 
-    # return b"data: " + code_completion_nostream(body)
     if "stream" in body and body["stream"]:
         return code_completion_stream(body)
     else:
         return "data: " + code_completion_nostream(body)
-        # raise NotImplementedError
 
 
 if __name__ == "__main__":
