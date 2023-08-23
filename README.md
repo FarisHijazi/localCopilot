@@ -5,7 +5,8 @@
 
 This project allows you to host your own GitHubCopilot-like model locally while using the official GitHubCopilot VSCode extension.
 
-This is done using a single script: `middleware.py`, which is a compatibility layer between the official GitHub copilot VSCode extension and [oobabooga](https://github.com/oobabooga/text-generation-webui) as a backend, since it supports almost all open source LLMs.
+This is done using a single script: `middleware.py`, which is a compatibility layer between the official GitHub copilot VSCode extension and [oobabooga](https://github.com/oobabooga/text-generation-webui) as a backend, 
+since it supports almost all open source LLMs and is commonly used.
 
 (I know that this might not be optimal, but this is a minimal hack that's easy to run)
 
@@ -37,7 +38,7 @@ Credit: I learned about the traffic redirecting from the Fauxpilot project [here
 1. Download and install the **[oobabooga](https://github.com/oobabooga/text-generation-webui#installation)** backend: (I recommend using the One-click installers)
 2. Open the `CMD_FLAGS.txt` and paste the following:
     ```sh
-    --load-in-8bit --api --extensions openai api --model Deci_DeciCoder-1b --auto-launch
+    --load-in-8bit --api --extensions openai api --model Deci_DeciCoder-1b --auto-launch --loader llamacpp
     ```
 3. Run the **oobabooga** server:
 
@@ -136,6 +137,12 @@ mv $COPILOTPATH/dist/resources.backup $COPILOTPATH/dist/resources
 
 </details>
 
+## Other works
+
 Here are some helpful open source projects I found while doing my research:
-- https://github.com/fauxpilot/fauxpilot/tree/main
-- https://github.com/Venthe/vscode-fauxpilot
+
+- https://github.com/fauxpilot/fauxpilot FauxPilot backend
+- https://github.com/Venthe/vscode-fauxpilot this is a FauxPilot frontend
+- https://github.com/ravenscroftj/turbopilot this uses FauxPilot frontend and redirects to a custom backend
+- https://github.com/hieunc229/copilot-clone frontend which uses Google/StackOverflow search as a backend
+
