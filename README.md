@@ -66,7 +66,7 @@ Credit: I learned about the traffic redirecting from the Fauxpilot project [here
 A. (optional) Test the backend using `curl`:
 
     ```sh
-    curl -X 'POST'   'http://localhost:5001/v1/engines/codegen/completions'   -H 'accept: application/json'   -H 'Content-Type: application/json'   -d '{"prompt":"def hello_w","suffix":"","max_tokens":500,"temperature":0.4,"top_p":1,"n":1,"stop":["\ndef ","\nclass ","\nif ","\n\n#"],"logprobs":2,"stream":true}'
+    curl -X 'POST'   'http://localhost:5001/v1/engines/codegen/completions'   -H 'accept: application/json'   -H 'Content-Type: application/json'   -d '{"prompt":"def hello_w","suffix":"","max_tokens":500,"temperature":0.4,"top_p":1,"n":10,"stop":["\ndef ","\nclass ","\nif ","\n\n#"],"logprobs":2,"stream":true}'
     ```
 
 B. (optional) Test that the model is working by going to the "chat" tab and clicking "generate".
@@ -87,8 +87,8 @@ B. (optional) Test that the model is working by going to the "chat" tab and clic
 7. Run the proxy:
 
     ```sh
-    pip install httpx fastapi uvicorn
-    python middleware.py --port 8000
+    pip install git+https://github.com/FarisHijazi/PrivateGitHubCopilot
+    PrivateGitHubCopilot --port 8000
     ```
 
 <details>

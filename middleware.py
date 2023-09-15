@@ -10,7 +10,6 @@ More functionality should be added later such as keep track of context of multip
 
 """
 
-import requests
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import StreamingResponse
 import httpx
@@ -68,8 +67,7 @@ async def code_completion(body: dict):
     else:
         raise NotImplementedError
 
-
-if __name__ == "__main__":
+def main():
     import uvicorn
     import argparse
 
@@ -81,3 +79,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     uvicorn.run(app, host=args.host, port=args.port)
+
+if __name__ == "__main__":
+    main()
