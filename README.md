@@ -18,7 +18,7 @@ Credit: I learned about the traffic redirecting from the Fauxpilot project [here
 ## 😁 Benefits of self-hosting
 
 1. **Privacy**: No more sending your code to the cloud! This is the main benefit especially for enterprise. No code is sent to the cloud when self-hosting since everything runs on your machine(s).
-2. **Works without internet**
+2. **Works without internet**: use it on the plane! ✈️
 3. **Free**: No need to pay for your monthly subscription
 
 
