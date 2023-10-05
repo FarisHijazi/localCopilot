@@ -14,6 +14,10 @@ from fastapi import FastAPI, HTTPException
 from fastapi.responses import StreamingResponse
 import httpx
 from signal import signal, SIGPIPE, SIG_DFL
+try:
+    from signal import signal, SIGPIPE, SIG_DFL
+except ImportError:  # If SIGPIPE is not available (win32),
+    pass             # we don't have to do anything to ignore it.
 signal(SIGPIPE,SIG_DFL)
 
 
