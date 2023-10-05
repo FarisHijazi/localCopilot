@@ -20,13 +20,13 @@ setuptools.setup(
     author='Faris Hijazi',
     author_email='theefaris@gmail.com',
     long_description_content_type='text/markdown',
-    packages=setuptools.find_packages('src'),
+    packages=setuptools.find_packages(),
     python_requires='>=3.6',
     install_requires=requirements,
     keywords='',
     entry_points={
         'console_scripts': [
-            'PrivateGitHubCopilot=src.middleware:main',
+            'PrivateGitHubCopilot=myproject.middleware:main',
         ]
     },
 )
