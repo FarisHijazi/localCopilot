@@ -26,7 +26,7 @@ setuptools.setup(
     keywords='',
     entry_points={
         'console_scripts': [
-            'PrivateGitHubCopilot=middleware:main',
+            'PrivateGitHubCopilot=src.middleware:main',
         ]
     },
 )
