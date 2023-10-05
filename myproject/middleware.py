@@ -13,7 +13,6 @@ More functionality should be added later such as keep track of context of multip
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import StreamingResponse
 import httpx
-from signal import signal, SIGPIPE, SIG_DFL
 try:
     from signal import signal, SIGPIPE, SIG_DFL
 except ImportError:  # If SIGPIPE is not available (win32),
