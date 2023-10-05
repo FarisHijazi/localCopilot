@@ -13,12 +13,11 @@ More functionality should be added later such as keep track of context of multip
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import StreamingResponse
 import httpx
-from signal import signal, SIGPIPE, SIG_DFL
 import os
 
 # Check if the platform is not Windows
 if os.name != 'nt':
-    from signal import SIGPIPE
+    from signal import SIGPIPE, SIG_DFL
     signal(SIGPIPE,SIG_DFL)
 
 app = FastAPI()
