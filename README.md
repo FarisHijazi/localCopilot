@@ -5,30 +5,6 @@
 
 This project allows you to host your own GitHubCopilot-like model locally while using the official GitHubCopilot VSCode extension.
 
-This is done using a single script: `PrivateGitHubCopilot/middleware.py` (only 90 lines of code), which is a compatibility layer between the official GitHub copilot VSCode extension and [oobabooga](https://github.com/oobabooga/text-generation-webui) as a backend.
-
-Credit: I learned about the traffic redirecting from the Fauxpilot project [here](https://github.com/fauxpilot/fauxpilot/blob/main/documentation/client.md#copilot-plugin).
-
-| | |
-|:-------:|:-------:|
-|Cloud| ![](./assets/github_copilot_official_diagram.png) |
-|Self-hosted| ![](./assets/github_copilot_ooba_middleware_diagram.png)  |
-
-
-## 😁 Benefits of self-hosting
-
-1. **Privacy**: No more sending your code to the cloud! This is the main benefit especially for enterprise. No code is sent to the cloud when self-hosting since everything runs on your machine(s).
-2. **Works without internet**: use it on the plane! ✈️
-3. **Free**: No need to pay for your monthly subscription
-
-
-## 😞 Limitations
-
-1. GitHub copilot looks at multiple files for context. The current hack only looks at the current file
-2. Open source models might not have suggestions as good as copilot, but still as good *most* of the time
-3. GitHub copilot gives 10 suggestions, while this hack gives only 1 suggestion per completion
-4. There's a bug where the first space in autocompletion is skipped, this is due to the oobabooga backend, not the model
-
 
 ## Installation:
 
@@ -113,6 +89,19 @@ data: [DONE]
     To test that the copilot extension is working, either type some code and hope for a completion
     or use the command pallet (`Ctrl+Shift+P`) and search for `GitHub Copilot: Open Completions Panel`
 
+---
+
+## How this works
+
+This is done using a single script: `PrivateGitHubCopilot/middleware.py` (only 90 lines of code), which is a compatibility layer between the official GitHub copilot VSCode extension and [oobabooga](https://github.com/oobabooga/text-generation-webui) as a backend.
+
+Credit: I learned about the traffic redirecting from the Fauxpilot project [here](https://github.com/fauxpilot/fauxpilot/blob/main/documentation/client.md#copilot-plugin).
+
+| | |
+|:-------:|:-------:|
+|Cloud| ![](./assets/github_copilot_official_diagram.png) |
+|Self-hosted| ![](./assets/github_copilot_ooba_middleware_diagram.png)  |
+
 
 <details>
   <summary>Advanced experimental hacks</summary>
@@ -145,6 +134,21 @@ mv $COPILOTPATH/dist/resources.backup $COPILOTPATH/dist/resources
 ```
 
 </details>
+
+## 😁 Benefits of self-hosting
+
+1. **Privacy**: No more sending your code to the cloud! This is the main benefit especially for enterprise. No code is sent to the cloud when self-hosting since everything runs on your machine(s).
+2. **Works without internet**: use it on the plane! ✈️
+3. **Free**: No need to pay for your monthly subscription
+
+
+## 😞 Limitations
+
+1. GitHub copilot looks at multiple files for context. The current hack only looks at the current file
+2. Open source models might not have suggestions as good as copilot, but still as good *most* of the time
+3. GitHub copilot gives 10 suggestions, while this hack gives only 1 suggestion per completion
+4. There's a bug where the first space in autocompletion is skipped, this is due to the oobabooga backend, not the model
+
 
 ## Why is this project setup this way?
 
