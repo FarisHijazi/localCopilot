@@ -17,7 +17,7 @@ import os
 
 # Check if the platform is not Windows
 if os.name != 'nt':
-    from signal import SIGPIPE, SIG_DFL
+    from signal import SIGPIPE, SIG_DFL, signal
     signal(SIGPIPE,SIG_DFL)
 
 app = FastAPI()
