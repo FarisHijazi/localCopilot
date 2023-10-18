@@ -41,7 +41,7 @@ async def code_completion(body: dict):
                     for i in range(body["n"]):
                         async with client.stream(
                             "POST",
-                            f"http://{BACKEND_URI}/v1/codegen/completions",
+                            f"http://{BACKEND_URI}/v1/engines/codegen/completions",
                             json=body,
                             headers={
                                 "Accept": "application/json",
@@ -86,7 +86,7 @@ def main():
 
     BACKEND_URI = args.backend
 
-    uvicorn.run(app, host=args.host, port=args.port, backend=args.backend)
+    uvicorn.run(app, host=args.host, port=args.port)
 
 if __name__ == "__main__":
-    main()
+    main
