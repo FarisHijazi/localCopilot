@@ -21,7 +21,7 @@ if os.name != 'nt':
     signal(SIGPIPE,SIG_DFL)
 
 app = FastAPI()
-
+BACKEND_URI = None  
 
 @app.post("/v1/engines/codegen/completions")
 async def code_completion(body: dict):
@@ -41,7 +41,7 @@ async def code_completion(body: dict):
                     for i in range(body["n"]):
                         async with client.stream(
                             "POST",
-                            "http://localhost:5001/v1/codegen/completions",
+                            f"http://{BACKEND_URI}/v1/codegen/completions",
                             json=body,
                             headers={
                                 "Accept": "application/json",
@@ -74,14 +74,19 @@ def main():
     import uvicorn
     import argparse
 
+    global BACKEND_URI
+
     parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
     parser.add_argument("--port", type=int, default=8000)
     parser.add_argument("--host", type=str, default="0.0.0.0")
+    parser.add_argument("--backend", type=str, default="localhost:5001")
     args = parser.parse_args()
 
-    uvicorn.run(app, host=args.host, port=args.port)
+    BACKEND_URI = args.backend
+
+    uvicorn.run(app, host=args.host, port=args.port, backend=args.backend)
 
 if __name__ == "__main__":
     main()
