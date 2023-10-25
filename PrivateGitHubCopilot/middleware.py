@@ -22,6 +22,15 @@ if os.name != 'nt':
 
 app = FastAPI()
 
+#Return fake token response to Copilot extension
+@app.get("/copilot_internal/v2/token")
+def get_copilot_token():
+    content = {'token': '1316850460', 'expires_at': 2600000000, 'refresh_in': 1800} #token value is just a random number
+    return JSONResponse(
+        status_code=200,
+        content=content
+    )
+
 
 @app.post("/v1/engines/codegen/completions")
 async def code_completion(body: dict):

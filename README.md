@@ -59,8 +59,12 @@ B. (optional) Test that the model is working by going to the "chat" tab and clic
         "debug.overrideProxyUrl": "http://localhost:8000",
     },
     ```
+    
+7. Update `~\.vscode\extensions\github.copilot-1.128.504\dist\extension.js` with the following:
+    - Replace `https://api.github.com/copilot_internal` with `http://127.0.0.1:5001/copilot_internal` (or your backend hosting your text-generation-webui server)
+    - replace `https://copilot-proxy.githubusercontent.com` with `http://127.0.0.1:5000` (or your backend hosting your text-generation-webui server)
 
-7. Run the proxy:
+8. Run the proxy:
 
     ```sh
     pip install git+https://github.com/FarisHijazi/PrivateGitHubCopilot
@@ -84,7 +88,7 @@ data: [DONE]
 
 </details>
 
-8. HAPPY CODING!
+9. HAPPY CODING!
 
     To test that the copilot extension is working, either type some code and hope for a completion
     or use the command pallet (`Ctrl+Shift+P`) and search for `GitHub Copilot: Open Completions Panel`
