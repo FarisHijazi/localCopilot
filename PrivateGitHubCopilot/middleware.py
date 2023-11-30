@@ -14,6 +14,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.responses import StreamingResponse
 import httpx
 import os
+from fastapi.responses import JSONResponse
 
 # Check if the platform is not Windows
 if os.name != 'nt':
@@ -21,7 +22,17 @@ if os.name != 'nt':
     signal(SIGPIPE,SIG_DFL)
 
 app = FastAPI()
-BACKEND_URI = None  
+
+#Return fake token response to Copilot extension
+@app.get("/copilot_internal/v2/token")
+def get_copilot_token():
+    #token value is just a random number
+    content = {'token': '1316850460', 'expires_at': 2600000000, 'refresh_in': 1800}
+    return JSONResponse(
+        status_code=200,
+        content=content
+    )
+
 
 @app.post("/v1/engines/codegen/completions")
 async def code_completion(body: dict):
