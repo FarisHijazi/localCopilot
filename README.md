@@ -73,7 +73,7 @@ B. (optional) Test that the model is working by going to the "chat" tab and clic
     If you have oobabooga running on a separate server use the --backend argument {hostname:port}
     ```sh
     pip install git+https://github.com/FarisHijazi/PrivateGitHubCopilot
-    PrivateGitHubCopilot --port 8000 --backend 10.0.0.1:5002
+    PrivateGitHubCopilot --port 8000 --backend_host 10.0.0.1 --backend_port 5002
     ```
 
 <details>
