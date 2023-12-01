@@ -23,9 +23,12 @@ if os.name != 'nt':
 
 app = FastAPI()
 
+global BACKEND_URI
+
 #Return fake token response to Copilot extension
 @app.get("/copilot_internal/v2/token")
 def get_copilot_token():
+    print('get_copilot_token()')
     #token value is just a random number
     content = {'token': '1316850460', 'expires_at': 2600000000, 'refresh_in': 1800}
     return JSONResponse(
@@ -37,12 +40,14 @@ def get_copilot_token():
 @app.post("/v1/engines/codegen/completions")
 async def code_completion(body: dict):
     body["n"] = 1
-    if "max_tokens" in body:
-        del body["max_tokens"]
+    # if "max_tokens" in body:
+    #     del body["max_tokens"]
 
     # FIXME: this is just a hardcoded number, but this should actually use the tokenizer to truncate
     body["prompt"] = body["prompt"][-4000:]
     print("making request. body:", {k: v for k, v in body.items() if k != "prompt"})
+
+    global BACKEND_URI
 
     def code_completion_stream(body: dict):
         # define the generator for streaming
@@ -85,19 +90,20 @@ def main():
     import uvicorn
     import argparse
 
-    global BACKEND_URI
-
     parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
     parser.add_argument("--port", type=int, default=8000)
-    parser.add_argument("--host", type=str, default="0.0.0.0")
-    parser.add_argument("--backend", type=str, default="localhost:5001")
+    parser.add_argument("--host", type=str, default="localhost")
+    parser.add_argument("--backend_host", type=str, default="localhost")
+    parser.add_argument("--backend_port", type=str, default="5001")
     args = parser.parse_args()
-
-    BACKEND_URI = args.backend
+    
+    
+    global BACKEND_URI
+    BACKEND_URI = args.backend_host + ":" + args.backend_port
 
     uvicorn.run(app, host=args.host, port=args.port)
 
 if __name__ == "__main__":
-    main
+    main()
