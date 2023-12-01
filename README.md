@@ -1,24 +1,35 @@
 # PrivateGitHubCopilot
 
 ![](https://user-images.githubusercontent.com/37570492/212965203-c9623e27-4fff-4961-a7f4-4d14625dd17c.gif)  
-([image source](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot))
+<!-- ([image source](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot)) -->
 
 This project allows you to host your own GitHubCopilot-like model locally while using the official GitHubCopilot VSCode extension.
 
+```sh
+wget https://marketplace.visualstudio.com/_apis/public/gallery/publishers/GitHub/vsextensions/copilot/1.77.9225/vspackage
+code --install-extension ./GitHub.copilot-1.77.9225.vsix
+
+sed 's|https://api.github.com/|http://127.0.0.1:5001/|g' -i ~/.vscode/extensions/github.copilot-*/dist/extension.js
+sed 's|https://copilot-proxy.githubusercontent.com|http://0.0.0.0:5000|g' -i ~/.vscode/extensions/github.copilot-*/dist/extension.js
+sed 's|/v1/engines/copilot-codex|/v1/engines/codegen|' -i ~/.vscode/extensions/github.copilot-*/dist/extension.js
+
+```
+
+```sh
+pip install git+https://github.com/lm-sys/FastChat optimum auto-gptq aiohttp
+python -m fastchat.serve.cli --model-path TheBloke/Starcoderplus-Guanaco-GPT4-15B-V1.0-GPTQ
+python -m fastchat.serve.openai_api_server --host localhost --port 5001
+```
 
 ## Installation:
 
-1. Download and install the **[oobabooga](https://github.com/oobabooga/text-generation-webui#installation)** backend: (I recommend using the One-click installers)
-2. Open the `CMD_FLAGS.txt` and paste the following:
+1. Download and install the **[oobabooga](https://github.com/oobabooga/text-generation-webui#installation)** backend
+
     ```sh
-    --load-in-8bit --api --extensions openai api --model Deci_DeciCoder-1b --auto-launch --loader llamacpp
+    curl -s https://raw.githubusercontent.com/FarisHijazi/PrivateGitHubCopilot/master/PrivateGitHubCopilot/auto_install_oobabooga.py | python3 - --load-in-8bit --api --extensions openai api --model Deci_DeciCoder-1b --auto-launch --loader llamacpp
     ```
-3. Run the **oobabooga** server:
 
-    click on `start_windows.bat` (or whatever your OS)
-
-4. install the [official GitHub copilot extension](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot)
-5. **Download a model**
+2. **Download a model**
 
     open the oobabooga UI, go to the **models** tab and download a code completion model. I'm using: `Deci/DeciCoder-1b`, paste that name, then click download, then click load once complete
 
@@ -36,6 +47,7 @@ This project allows you to host your own GitHubCopilot-like model locally while 
 
     ![](https://www.1552.cn/wp-content/uploads/2023/06/03a46779cf1ed51-17.gif)
 
+# 
 <details>
 <summary>Optional testing</summary>
 
@@ -50,7 +62,7 @@ B. (optional) Test that the model is working by going to the "chat" tab and clic
 
 </details>
 
-6. Go to VSCode and modify the settings and add the following:
+3. Go to VSCode and modify the settings and add the following:
 
     ```json
     "github.copilot.advanced": {
@@ -59,21 +71,23 @@ B. (optional) Test that the model is working by going to the "chat" tab and clic
         "debug.overrideProxyUrl": "http://localhost:8000",
     },
     ```
-    
-7. Update `~\.vscode\extensions\github.copilot-1.128.504\dist\extension.js` with the following:
-    - Replace `https://api.github.com/copilot_internal` with `http://127.0.0.1:5001/copilot_internal` (or your backend hosting your text-generation-webui server)
-    - replace `https://copilot-proxy.githubusercontent.com` with `http://127.0.0.1:5000` (or your backend hosting your text-generation-webui server)
 
-8. Run the proxy:
+4. (optional for authentication) Update `~/.vscode/extensions/github.copilot-*/dist/extension.js` with the following:
+    - Replace `https://api.github.com/copilot_internal` with `http://127.0.0.1:8000/copilot_internal`
+    - replace `https://copilot-proxy.githubusercontent.com` with `http://127.0.0.1:8000`
+
+5. Run the proxy:
 
     ```sh
     pip install git+https://github.com/FarisHijazi/PrivateGitHubCopilot
-    PrivateGitHubCopilot --port 8000
+    PrivateGitHubCopilot --port 7000
     ```
+
+
     If you have oobabooga running on a separate server use the --backend argument {hostname:port}
     ```sh
     pip install git+https://github.com/FarisHijazi/PrivateGitHubCopilot
-    PrivateGitHubCopilot --port 8000 --backend_host 10.0.0.1 --backend_port 5002
+    PrivateGitHubCopilot --port 8000 --backend http://10.0.0.1:5002
     ```
 
 <details>
@@ -93,7 +107,9 @@ data: [DONE]
 
 </details>
 
-9. HAPPY CODING!
+6. install the [official GitHub copilot extension](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot)
+
+7. HAPPY CODING!
 
     To test that the copilot extension is working, either type some code and hope for a completion
     or use the command pallet (`Ctrl+Shift+P`) and search for `GitHub Copilot: Open Completions Panel`
@@ -146,17 +162,17 @@ mv $COPILOTPATH/dist/resources.backup $COPILOTPATH/dist/resources
 
 ## 😁 Benefits of self-hosting
 
-1. **Privacy**: No more sending your code to the cloud! This is the main benefit especially for enterprise. No code is sent to the cloud when self-hosting since everything runs on your machine(s).
-2. **Works without internet**: use it on the plane! ✈️
-3. **Free**: No need to pay for your monthly subscription
+1. 🔏 **Privacy**: No more sending your code to the cloud! This is the main benefit especially for enterprise. No code is sent to the cloud when self-hosting since everything runs on your machine(s).
+2. 🌐 **Works without internet**: use it on the plane! ✈️
+3. 💰 **Free**: No need to pay for your monthly subscription
 
 
 ## 😞 Limitations
 
 1. GitHub copilot looks at multiple files for context. The current hack only looks at the current file
-2. Open source models might not have suggestions as good as copilot, but still as good *most* of the time
+2. **Quality** Open source models might not have suggestions as good as copilot, but still as good *most* of the time
 3. GitHub copilot gives 10 suggestions, while this hack gives only 1 suggestion per completion
-4. There's a bug where the first space in autocompletion is skipped, this is due to the oobabooga backend, not the model
+4. 🐛 There's a bug where the first space in autocompletion is skipped, this is due to the oobabooga backend, not the model
 
 
 ## Why is this project setup this way?

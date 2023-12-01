@@ -23,7 +23,6 @@ if os.name != 'nt':
 
 app = FastAPI()
 
-global BACKEND_URI
 
 #Return fake token response to Copilot extension
 @app.get("/copilot_internal/v2/token")
@@ -48,6 +47,9 @@ async def code_completion(body: dict):
     print("making request. body:", {k: v for k, v in body.items() if k != "prompt"})
 
     global BACKEND_URI
+    if BACKEND_URI is None:
+        raise HTTPException(status_code=500, detail="Fatal Error, BACKEND_URI is not set")
+
 
     def code_completion_stream(body: dict):
         # define the generator for streaming
@@ -57,7 +59,7 @@ async def code_completion(body: dict):
                     for i in range(body["n"]):
                         async with client.stream(
                             "POST",
-                            f"http://{BACKEND_URI}/v1/engines/codegen/completions",
+                            f"{BACKEND_URI}/v1/engines/codegen/completions",
                             json=body,
                             headers={
                                 "Accept": "application/json",
@@ -95,13 +97,12 @@ def main():
     )
     parser.add_argument("--port", type=int, default=8000)
     parser.add_argument("--host", type=str, default="localhost")
-    parser.add_argument("--backend_host", type=str, default="localhost")
-    parser.add_argument("--backend_port", type=str, default="5001")
+    parser.add_argument("--backend", type=str, default="http://localhost:5001")
     args = parser.parse_args()
     
     
     global BACKEND_URI
-    BACKEND_URI = args.backend_host + ":" + args.backend_port
+    BACKEND_URI = args.backend
 
     uvicorn.run(app, host=args.host, port=args.port)
 
