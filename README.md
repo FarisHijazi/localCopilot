@@ -1,5 +1,12 @@
 # PrivateGitHubCopilot
 
+<a href="https://sahem.ksrelief.org/Pages/ProgramDetails/1ca8852b-9e6d-ee11-b83f-005056ac5498">
+<img src="https://www.jewishvoiceforpeace.org/wp-content/uploads/2023/10/free-palestine-e1698086048530.jpeg" height="100px" position="center">
+</a>
+
+[donate here](https://sahem.ksrelief.org/Pages/ProgramDetails/1ca8852b-9e6d-ee11-b83f-005056ac5498)
+
+
 ![](https://user-images.githubusercontent.com/37570492/212965203-c9623e27-4fff-4961-a7f4-4d14625dd17c.gif)  
 <!-- ([image source](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot)) -->
 
