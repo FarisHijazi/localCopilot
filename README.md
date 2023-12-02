@@ -5,29 +5,9 @@
 
 This project allows you to host your own GitHubCopilot-like model locally while using the official GitHubCopilot VSCode extension.
 
-```sh
-wget https://marketplace.visualstudio.com/_apis/public/gallery/publishers/GitHub/vsextensions/copilot/1.77.9225/vspackage
-code --install-extension ./GitHub.copilot-1.77.9225.vsix
-
-sed 's|https://api.github.com/|http://127.0.0.1:5001/|g' -i ~/.vscode/extensions/github.copilot-*/dist/extension.js
-sed 's|https://copilot-proxy.githubusercontent.com|http://0.0.0.0:5000|g' -i ~/.vscode/extensions/github.copilot-*/dist/extension.js
-sed 's|/v1/engines/copilot-codex|/v1/engines/codegen|' -i ~/.vscode/extensions/github.copilot-*/dist/extension.js
-
-```
-
-```sh
-pip install git+https://github.com/lm-sys/FastChat optimum auto-gptq aiohttp
-python -m fastchat.serve.cli --model-path TheBloke/Starcoderplus-Guanaco-GPT4-15B-V1.0-GPTQ
-python -m fastchat.serve.openai_api_server --host localhost --port 5001
-```
-
 ## Installation:
 
 1. Download and install the **[oobabooga](https://github.com/oobabooga/text-generation-webui#installation)** backend
-
-    ```sh
-    curl -s https://raw.githubusercontent.com/FarisHijazi/PrivateGitHubCopilot/master/PrivateGitHubCopilot/auto_install_oobabooga.py | python3 - --load-in-8bit --api --extensions openai api --model Deci_DeciCoder-1b --auto-launch --loader llamacpp
-    ```
 
 2. **Download a model**
 
