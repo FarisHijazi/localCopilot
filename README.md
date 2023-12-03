@@ -1,4 +1,4 @@
-# PrivateGitHubCopilot
+# localCopilot
 
 <a href="https://sahem.ksrelief.org/Pages/ProgramDetails/1ca8852b-9e6d-ee11-b83f-005056ac5498">
 <img src="https://www.jewishvoiceforpeace.org/wp-content/uploads/2023/10/free-palestine-e1698086048530.jpeg" height="100px" position="center">
@@ -66,15 +66,15 @@ B. (optional) Test that the model is working by going to the "chat" tab and clic
 5. Run the proxy:
 
     ```sh
-    pip install git+https://github.com/FarisHijazi/PrivateGitHubCopilot
-    PrivateGitHubCopilot --port 7000
+    pip install git+https://github.com/FarisHijazi/localCopilot
+    localCopilot --port 7000
     ```
 
 
     If you have oobabooga running on a separate server use the --backend argument {hostname:port}
     ```sh
-    pip install git+https://github.com/FarisHijazi/PrivateGitHubCopilot
-    PrivateGitHubCopilot --port 8000 --backend http://10.0.0.1:5002
+    pip install git+https://github.com/FarisHijazi/localCopilot
+    localCopilot --port 8000 --backend http://10.0.0.1:5002
     ```
 
 <details>
@@ -105,7 +105,7 @@ data: [DONE]
 
 ## How this works
 
-This is done using a single script: `PrivateGitHubCopilot/middleware.py` (only 90 lines of code), which is a compatibility layer between the official GitHub copilot VSCode extension and [oobabooga](https://github.com/oobabooga/text-generation-webui) as a backend.
+This is done using a single script: `localCopilot/middleware.py` (only 90 lines of code), which is a compatibility layer between the official GitHub copilot VSCode extension and [oobabooga](https://github.com/oobabooga/text-generation-webui) as a backend.
 
 Credit: I learned about the traffic redirecting from the Fauxpilot project [here](https://github.com/fauxpilot/fauxpilot/blob/main/documentation/client.md#copilot-plugin).
 
