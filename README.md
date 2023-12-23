@@ -41,7 +41,7 @@ This project allows you to host your own GitHubCopilot-like model locally while 
 A. (optional) Test the backend using `curl`:
 
     ```sh
-    curl -X 'POST'   'http://localhost:5001/v1/engines/codegen/completions'   -H 'accept: application/json'   -H 'Content-Type: application/json'   -d '{"prompt":"def hello_w","suffix":"","max_tokens":500,"temperature":0.4,"top_p":1,"n":10,"stop":["\ndef ","\nclass ","\nif ","\n\n#"],"logprobs":2,"stream":true}'
+    curl -X 'POST'   'http://localhost:5000/v1/engines/codegen/completions'   -H 'accept: application/json'   -H 'Content-Type: application/json'   -d '{"prompt":"def hello_w","suffix":"","max_tokens":500,"temperature":0.4,"top_p":1,"n":10,"stop":["\ndef ","\nclass ","\nif ","\n\n#"],"logprobs":2,"stream":true}'
     ```
 
 B. (optional) Test that the model is working by going to the "chat" tab and clicking "generate".

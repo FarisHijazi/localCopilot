@@ -56,28 +56,28 @@ async def code_completion(body: dict):
         async def stream_content():
             try:
                 async with httpx.AsyncClient(timeout=30.0) as client:
-                    for i in range(body["n"]):
-                        async with client.stream(
-                            "POST",
-                            f"{BACKEND_URI}/v1/engines/codegen/completions",
-                            json=body,
-                            headers={
-                                "Accept": "application/json",
-                                "Content-type": "application/json",
-                            },
-                        ) as response:
-                            # Check if the response status is not successful
-                            if response.status_code != 200:
-                                raise HTTPException(
-                                    status_code=response.status_code,
-                                    detail="Failed to fetch from the target endpoint",
-                                )
+                    body["n"] = 1
+                    async with client.stream(
+                        "POST",
+                        f"{BACKEND_URI}/v1/completions",
+                        json=body,
+                        headers={
+                            "Accept": "application/json",
+                            "Content-type": "application/json",
+                        },
+                    ) as response:
+                        # Check if the response status is not successful
+                        if response.status_code != 200:
+                            raise HTTPException(
+                                status_code=response.status_code,
+                                detail="Failed to fetch from the target endpoint",
+                            )
 
-                            # Stream the response content
-                            async for chunk in response.aiter_bytes():
-                                # print('getting chunk')
-                                print(f"{chunk=}")
-                                yield chunk
+                        # Stream the response content
+                        async for chunk in response.aiter_bytes():
+                            # print('getting chunk')
+                            print(f"{chunk=}")
+                            yield chunk
             except httpx.ReadTimeout:
                 print("A timeout occurred while reading data from the server.")
 
@@ -97,7 +97,7 @@ def main():
     )
     parser.add_argument("--port", type=int, default=8000)
     parser.add_argument("--host", type=str, default="localhost")
-    parser.add_argument("--backend", type=str, default="http://localhost:5001")
+    parser.add_argument("--backend", type=str, default="http://localhost:5000")
     args = parser.parse_args()
     
     
